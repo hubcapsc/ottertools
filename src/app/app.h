@@ -1,0 +1,1 @@
+char appDotHVariable[] = "appDotHVariable";

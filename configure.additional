@@ -1,0 +1,65 @@
+# tar-ustar causes us to try and use a tar that can deal with long path names.
+AM_INIT_AUTOMAKE(tar-ustar)
+
+AM_PROG_LIBTOOL
+
+AC_CONFIG_MACRO_DIR([m4])
+
+# precedence of where we look for stuff we need:
+#  - which(1) - if "which" finds something, use that.
+#  - look in the usual places, use the first one we find.
+#  - make them tell us where it is.
+#
+USUAL_SUSPECTS=\
+"/usr/bin/
+/usr/sbin/
+/usr/local/bin/
+/usr/local/sbin/
+/usr/local/apache2/bin/"
+
+# locate whackyprog. whackyprog is some program we need if we are going
+# to compile convenience library 3, similar to how you might need to
+# find apxs if you were going to compile an apache module. The way
+# the "locate whackyprog" block here works:
+#   if whackyprog can be found, it gets used.
+#   if whackyprog can't be found, configure errs with a suggestion
+#      about how to tell configure where whackyprog is. In this example
+#      it is possible to build some of the project without whackyprog.
+
+AC_ARG_WITH([whackyprog],
+  AS_HELP_STRING([--with-whackyprog=/FULL/PATH/apxs],
+                 [path to whackyprog executable, or "ignore" to avoid building \
+convenience library 3]))
+
+MY_WHACKYPROG="no"
+
+which whackyprog &> /dev/null
+
+if test "$?" == "0" ; then
+  MY_WHACKYPROG=`which whackyprog`
+else
+  for candidate in $USUAL_SUSPECTS
+  do
+    AS_IF([test -x $candidate"whackyprog"],
+          [MY_WHACKYPROG=$candidate"whackyprog"])
+  done
+fi
+
+if test "x$with_whackyprog" != "x" ; then
+  MY_WHACKYPROG=$with_whackyprog
+fi
+
+if test "$MY_WHACKYPROG" = "no"; then
+  AC_MSG_ERROR([*** Use --with-whackyprog=/full/path/to/whackyprog or \
+--with-whackyprog=ignore to avoid building convenience library 3.])
+else
+  if test "$MY_WHACKYPROG" = "ignore"; then
+    AC_MSG_NOTICE([ notice: NOT BUILDING CONVENIENCE LIBRARY 3 ])
+    AM_CONDITIONAL(BUILD_CONVENIENCE_LIB_3, [test x"$MY_WHACKYPROG" = ignore])
+  else
+    AC_MSG_NOTICE([ using: $MY_WHACKYPROG ])
+    AM_CONDITIONAL(BUILD_CONVENIENCE_LIB_3, [test x"$MY_WHACKYPROG" != ignore])
+  fi
+fi
+
+AC_SUBST(MY_WHACKYPROG)

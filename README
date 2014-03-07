@@ -1,0 +1,24 @@
+
+This example autotools project makes an api library from several
+convenience libraries, and includes an app that tests the api library.
+
+prepare.sh grinds the human-prepared configs through the various
+autotools to produce a project that can be built 
+with "configure;make;make install".
+
+configure.additional shows how to add functionality beyond
+default to configure, including setting a conditional.
+
+Makefile.am shows using the conditional to affect construction
+of the SUBDIRS variable.
+
+src/Makefile.am causes some header files to be installed at 
+"make install" time.
+
+src/app/Makefile.am builds the tester app using the conditional.
+
+The convenience library Makefile.ams build the convenience libraries
+as not-to-be-installed libaries.
+
+./src/libapi/Makefile.am builds the to-be-installed api library 
+from the convenience libraries, and uses the conditional.
