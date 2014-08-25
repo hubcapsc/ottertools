@@ -8,7 +8,7 @@ AC_CONFIG_MACRO_DIR([m4])
 # precedence of where we look for stuff we need:
 #  - which(1) - if "which" finds something, use that.
 #  - look in the usual places, use the first one we find.
-#  - make them tell us where it is.
+#  - why don't you just tell me what movie you'd like to see?
 #
 USUAL_SUSPECTS=\
 "/usr/bin/
@@ -27,7 +27,7 @@ USUAL_SUSPECTS=\
 #      it is possible to build some of the project without whackyprog.
 
 AC_ARG_WITH([whackyprog],
-  AS_HELP_STRING([--with-whackyprog=/FULL/PATH/apxs],
+  AS_HELP_STRING([--with-whackyprog=/FULL/PATH/whackyprog],
                  [path to whackyprog executable, or "ignore" to avoid building \
 convenience library 3]))
 
