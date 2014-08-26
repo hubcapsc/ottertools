@@ -8,8 +8,8 @@ endif
 # Instead of building the executable in the same directory
 # as Makefile.am, send it off to a build directory.
 #
-bin_PROGRAMS = $(top_builddir)/build/substitution/app 
-__top_builddir__build_substitution_app_SOURCES = \
+bin_PROGRAMS = $(top_builddir)/build/$(PLATFORM_TYPE)/app 
+__top_builddir__build___PLATFORM_TYPE__app_SOURCES = \
   app.c \
   app.h
 #

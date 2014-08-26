@@ -5,6 +5,16 @@ AM_PROG_LIBTOOL
 
 AC_CONFIG_MACRO_DIR([m4])
 
+# platform type. There's rules about how derived variables that
+# are used in Makefiles are named. We are going to evaluate PLATFORM_TYPE
+# into a derived variable name down the line, so we'll try to mash down
+# any but the most vanilla characters into underscores... underscores
+# are valid in derived variable names.
+PLATFORM_TYPE=`uname -s``uname -r`
+PLATFORM_TYPE=`echo [${PLATFORM_TYPE//[^[:alnum:]]/_}]`
+AC_MSG_NOTICE([ platform type: $PLATFORM_TYPE ])
+AC_SUBST(PLATFORM_TYPE)
+
 # precedence of where we look for stuff we need:
 #  - which(1) - if "which" finds something, use that.
 #  - look in the usual places, use the first one we find.
@@ -61,5 +71,3 @@ else
     AM_CONDITIONAL(BUILD_CONVENIENCE_LIB_3, [test x"$MY_WHACKYPROG" != ignore])
   fi
 fi
-
-AC_SUBST(MY_WHACKYPROG)
