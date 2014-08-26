@@ -1,8 +1,8 @@
 #include <stdio.h>
-#include <convenienceLib1/cl1.h>
-#include <convenienceLib2/cl2.h>
+#include "convenienceLib1/cl1.h"
+#include "convenienceLib2/cl2.h"
 #ifdef __CL3
-#include <convenienceLib3/cl3.h>
+#include "convenienceLib3/cl3.h"
 #endif
 #include "app.h"
 
