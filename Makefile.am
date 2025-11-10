@@ -1,4 +1,4 @@
-# libtoolize suggested that I add '-I m4' to ACLOCAL_AMFLAGS.
+# libtoolize suggested that I add '-I m4' to ACLOCAL_AMFLAGS..
 ACLOCAL_AMFLAGS = -I m4
 # SUBDIRS indicates where to look for stuff to build and controls 
 # component build order.
